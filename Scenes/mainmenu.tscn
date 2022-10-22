@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgorf3o1hv62u"]
+
+[ext_resource type="Script" path="res://Scripts/mainmenu.gd" id="1_j3omg"]
+[ext_resource type="PackedScene" uid="uid://dq7iymadrh1o0" path="res://Objects/FPSCounter.tscn" id="1_wyc2s"]
+[ext_resource type="Texture2D" uid="uid://b38hiv0qjxlda" path="res://Assets/BGAssets0001.png" id="3_solhh"]
+[ext_resource type="Texture2D" uid="uid://bn1w5550d6ij3" path="res://Assets/BGAssets0002.png" id="4_ox2pa"]
+[ext_resource type="Texture2D" uid="uid://n4cpwmi7vwi5" path="res://Assets/logoGlowOurple.png" id="5_gh1eo"]
+[ext_resource type="FontFile" uid="uid://co2jx8ee8l6gn" path="res://Fonts/pixel.otf" id="6_m2qwl"]
+[ext_resource type="PackedScene" uid="uid://bj17g1sehchsx" path="res://Objects/notifier.tscn" id="7_vkklr"]
+
+[sub_resource type="Animation" id="Animation_hfuc3"]
+resource_name = "def"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1606, 799), Vector2(1439, 467)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3bnwh"]
+_data = {
+"def": SubResource("Animation_hfuc3")
+}
+
+[node name="mainmenu" type="Node2D"]
+script = ExtResource("1_j3omg")
+
+[node name="FPSCounter" parent="." instance=ExtResource("1_wyc2s")]
+position = Vector2(3, 2)
+
+[node name="BgAssets0001" type="Sprite2D" parent="."]
+position = Vector2(156, 72)
+texture = ExtResource("3_solhh")
+
+[node name="BgAssets0002" type="Sprite2D" parent="."]
+position = Vector2(1606, 799)
+texture = ExtResource("4_ox2pa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BgAssets0002"]
+autoplay = "def"
+libraries = {
+"": SubResource("AnimationLibrary_3bnwh")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="LogoGlowOurple" type="Sprite2D" parent="."]
+position = Vector2(445, -190)
+texture = ExtResource("5_gh1eo")
+
+[node name="Menu" type="Node" parent="."]
+
+[node name="menuContainer" type="Sprite2D" parent="Menu"]
+scale = Vector2(0.1, 0.1)
+
+[node name="newg" type="Button" parent="Menu/menuContainer"]
+offset_left = -9510.0
+offset_top = -1231.0
+offset_right = -1521.0
+offset_bottom = -213.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.490196, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.301961)
+theme_override_fonts/font = ExtResource("6_m2qwl")
+theme_override_font_sizes/font_size = 734
+text = "new game"
+flat = true
+alignment = 0
+
+[node name="continu" type="Button" parent="Menu/menuContainer"]
+offset_left = -9520.0
+offset_top = -390.0
+offset_right = -5018.0
+offset_bottom = 628.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.490196, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.301961)
+theme_override_fonts/font = ExtResource("6_m2qwl")
+theme_override_font_sizes/font_size = 734
+text = "continue"
+flat = true
+alignment = 0
+
+[node name="opt" type="Button" parent="Menu/menuContainer"]
+offset_left = -9520.0
+offset_top = 420.0
+offset_right = -5650.0
+offset_bottom = 1438.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.490196, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.301961)
+theme_override_fonts/font = ExtResource("6_m2qwl")
+theme_override_font_sizes/font_size = 734
+text = "options
+"
+flat = true
+alignment = 0
+
+[node name="quit" type="Button" parent="Menu/menuContainer"]
+offset_left = -9520.0
+offset_top = 1260.0
+offset_right = -5650.0
+offset_bottom = 2278.0
+theme_override_colors/font_color = Color(0.713726, 0, 0.129412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0.301961)
+theme_override_fonts/font = ExtResource("6_m2qwl")
+theme_override_font_sizes/font_size = 734
+text = "quit
+"
+flat = true
+alignment = 0
+
+[node name="notifier" parent="." instance=ExtResource("7_vkklr")]
+position = Vector2(404, -540)
+
+[connection signal="noBuildNum" from="FPSCounter" to="." method="_on_fps_counter_no_build_num"]

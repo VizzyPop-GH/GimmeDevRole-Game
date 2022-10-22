@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq7iymadrh1o0"]
+[gd_scene load_steps=6 format=3 uid="uid://dq7iymadrh1o0"]
 
 [ext_resource type="Script" path="res://Scripts/FPSCounter.gd" id="1_1cp28"]
 [ext_resource type="FontFile" uid="uid://cyi6cld5cxaan" path="res://Fonts/vcr.ttf" id="1_pxsaj"]
+[ext_resource type="Script" path="res://Scripts/scaler.gd" id="2_l218h"]
 [ext_resource type="Script" path="res://main.gd" id="3_lc61w"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rlj2b"]
@@ -9,40 +10,41 @@ font = ExtResource("1_pxsaj")
 font_size = 140
 
 [node name="FPSCounter" type="Node2D"]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_1cp28")
 
-[node name="scaler" type="Sprite2D" parent="CanvasLayer"]
-scale = Vector2(0.2, 0.2)
+[node name="thej" type="CanvasLayer" parent="."]
 
-[node name="fps" type="Label" parent="CanvasLayer/scaler"]
+[node name="scaler" type="Sprite2D" parent="thej"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("2_l218h")
+
+[node name="fps" type="Label" parent="thej/scaler"]
 offset_right = 58.0
 offset_bottom = 23.0
-text = "98475698457749567fps"
+text = "placeholder"
 label_settings = SubResource("LabelSettings_rlj2b")
 metadata/_edit_use_anchors_ = true
 
-[node name="mem" type="Label" parent="CanvasLayer/scaler"]
+[node name="mem" type="Label" parent="thej/scaler"]
 offset_top = 120.0
 offset_right = 492.0
 offset_bottom = 247.0
-text = "4580896gb"
+text = "placeholder"
 label_settings = SubResource("LabelSettings_rlj2b")
 metadata/_edit_use_anchors_ = true
 
-[node name="ver" type="Label" parent="CanvasLayer/scaler"]
+[node name="ver" type="Label" parent="thej/scaler"]
 offset_left = 10.0
 offset_top = 240.0
 offset_right = 830.0
 offset_bottom = 367.0
-text = "0.0.0 (b0)"
+text = "loading..."
 label_settings = SubResource("LabelSettings_rlj2b")
 metadata/_edit_use_anchors_ = true
 
-[node name="Github" type="HTTPRequest" parent="CanvasLayer"]
+[node name="Github" type="HTTPRequest" parent="thej"]
 
-[node name="main" type="Node" parent="CanvasLayer"]
+[node name="main" type="Node" parent="thej"]
 script = ExtResource("3_lc61w")
 
-[connection signal="request_completed" from="CanvasLayer/Github" to="CanvasLayer" method="_on_github_request_completed"]
+[connection signal="request_completed" from="thej/Github" to="." method="_on_github_request_completed"]

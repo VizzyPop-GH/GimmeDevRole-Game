@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceeqas3fs4eds"]
+[gd_scene load_steps=6 format=3 uid="uid://ceeqas3fs4eds"]
 
 [ext_resource type="PackedScene" uid="uid://78jyjcicpxxk" path="res://Objects/funnyText.tscn" id="1_cv8jv"]
+[ext_resource type="Script" path="res://Scripts/flashManIntro.gd" id="1_v2tvm"]
 [ext_resource type="PackedScene" uid="uid://dq7iymadrh1o0" path="res://Objects/FPSCounter.tscn" id="2_dwo7a"]
+[ext_resource type="PackedScene" uid="uid://xq4iip7i7ggj" path="res://Objects/Flash.tscn" id="4_8pq4i"]
+[ext_resource type="PackedScene" uid="uid://bj17g1sehchsx" path="res://Objects/notifier.tscn" id="5_e426c"]
 
 [node name="2D" type="Node2D"]
+script = ExtResource("1_v2tvm")
 
 [node name="ourBg" type="ColorRect" parent="."]
 offset_left = -973.0
@@ -13,10 +17,28 @@ offset_bottom = 552.0
 color = Color(0, 0, 0, 1)
 
 [node name="funnyText" parent="." instance=ExtResource("1_cv8jv")]
-introTextDisplay = ["the", "j", "xd", "lmao"]
+introTextDisplay = ["brought to you by", "VizxyPop", "xd", "", "i need help", "(real)", "Gimme", "Gimme", "Gimme"]
+timeInbetweenHitsInSeconds = 1.0
 
-[node name="FPSCounter" parent="." instance=ExtResource("2_dwo7a")]
+[node name="fps" parent="." instance=ExtResource("2_dwo7a")]
 position = Vector2(-959, -539)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="Flash" parent="." instance=ExtResource("4_8pq4i")]
+
+[node name="notifier" parent="." instance=ExtResource("5_e426c")]
+position = Vector2(401, -533)
+
+[node name="funnyText2" parent="." instance=ExtResource("1_cv8jv")]
+introTextDisplay = ["", "", "", "", "", "", "", "Dev", "Dev"]
+timeInbetweenHitsInSeconds = 1.0
+textIndex = 1
+
+[node name="funnyText3" parent="." instance=ExtResource("1_cv8jv")]
+introTextDisplay = ["", "", "", "", "", "", "", "", "Role"]
+timeInbetweenHitsInSeconds = 1.0
+textIndex = 2
+
+[connection signal="noBuildNum" from="fps" to="." method="_on_fps_no_build_num"]

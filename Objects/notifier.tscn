@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://bj17g1sehchsx"]
+
+[ext_resource type="Script" path="res://Scripts/Alert.gd" id="1_2sgte"]
+[ext_resource type="Texture2D" uid="uid://7f2rs3u7l6bs" path="res://Assets/Alert.png" id="1_yl6k7"]
+[ext_resource type="FontFile" uid="uid://co2jx8ee8l6gn" path="res://Fonts/pixel.otf" id="2_gctdr"]
+[ext_resource type="AudioStream" uid="uid://ckc3wiwlhhcde" path="res://Sounds/explosion.wav" id="4_jr1lr"]
+
+[sub_resource type="Animation" id="Animation_an1s5"]
+resource_name = "NotifyIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root/Panel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.133972, 1),
+"update": 0,
+"values": [Vector2(288, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ik4c0"]
+resource_name = "NotifyOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root/Panel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(6.9644, 0.133972),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(288, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sidle"]
+_data = {
+"NotifyIn": SubResource("Animation_an1s5"),
+"NotifyOut": SubResource("Animation_ik4c0")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8sl7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 88
+corner_radius_top_right = 88
+corner_radius_bottom_right = 88
+corner_radius_bottom_left = 88
+
+[sub_resource type="LabelSettings" id="LabelSettings_sspd0"]
+font = ExtResource("2_gctdr")
+font_size = 137
+
+[sub_resource type="LabelSettings" id="LabelSettings_i03fk"]
+font = ExtResource("2_gctdr")
+font_size = 90
+
+[node name="notifier" type="Node2D"]
+script = ExtResource("1_2sgte")
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sidle")
+}
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jr1lr")
+volume_db = -16.155
+
+[node name="root" type="Sprite2D" parent="."]
+scale = Vector2(1.492, 1.492)
+
+[node name="Panel" type="Panel" parent="root"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 288.0
+offset_right = 659.0
+offset_bottom = 93.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g8sl7")
+
+[node name="Alert" type="Sprite2D" parent="root/Panel"]
+position = Vector2(32, 46)
+scale = Vector2(0.27225, 0.238272)
+texture = ExtResource("1_yl6k7")
+
+[node name="scaler" type="Sprite2D" parent="root/Panel"]
+scale = Vector2(0.1, 0.1)
+
+[node name="error" type="Label" parent="root/Panel/scaler"]
+offset_left = 670.0
+offset_top = 110.0
+offset_right = 3460.0
+offset_bottom = 447.0
+text = "Unable to get build number"
+label_settings = SubResource("LabelSettings_sspd0")
+
+[node name="desc" type="Label" parent="root/Panel/scaler"]
+offset_left = 670.0
+offset_top = 410.0
+offset_right = 3460.0
+offset_bottom = 780.0
+text = "Quota Reached
+This could be a problem with your internet"
+label_settings = SubResource("LabelSettings_i03fk")
+vertical_alignment = 3
+autowrap_mode = 2
+
+[connection signal="animation_finished" from="Animator" to="." method="_on_animator_finished"]
