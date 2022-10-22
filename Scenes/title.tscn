@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceeqas3fs4eds"]
+
+[ext_resource type="PackedScene" uid="uid://78jyjcicpxxk" path="res://Objects/funnyText.tscn" id="1_cv8jv"]
+[ext_resource type="PackedScene" uid="uid://dq7iymadrh1o0" path="res://Objects/FPSCounter.tscn" id="2_dwo7a"]
+
+[node name="2D" type="Node2D"]
+
+[node name="ourBg" type="ColorRect" parent="."]
+offset_left = -973.0
+offset_top = -550.0
+offset_right = 986.0
+offset_bottom = 552.0
+color = Color(0, 0, 0, 1)
+
+[node name="funnyText" parent="." instance=ExtResource("1_cv8jv")]
+introTextDisplay = ["the", "j", "xd", "lmao"]
+
+[node name="FPSCounter" parent="." instance=ExtResource("2_dwo7a")]
+position = Vector2(-959, -539)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true

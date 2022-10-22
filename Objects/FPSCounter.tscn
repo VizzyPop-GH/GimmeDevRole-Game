@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq7iymadrh1o0"]
+
+[ext_resource type="Script" path="res://Scripts/FPSCounter.gd" id="1_1cp28"]
+[ext_resource type="FontFile" uid="uid://cyi6cld5cxaan" path="res://Fonts/vcr.ttf" id="1_pxsaj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rlj2b"]
+font = ExtResource("1_pxsaj")
+font_size = 140
+
+[node name="FPSCounter" type="Node2D"]
+script = ExtResource("1_1cp28")
+
+[node name="scaler" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+
+[node name="fps" type="Label" parent="scaler"]
+offset_right = 58.0
+offset_bottom = 23.0
+text = "98475698457749567fps"
+label_settings = SubResource("LabelSettings_rlj2b")
+metadata/_edit_use_anchors_ = true
+
+[node name="mem" type="Label" parent="scaler"]
+offset_top = 120.0
+offset_right = 492.0
+offset_bottom = 247.0
+text = "4580896gb"
+label_settings = SubResource("LabelSettings_rlj2b")
+metadata/_edit_use_anchors_ = true
+
+[node name="ver" type="Label" parent="scaler"]
+offset_left = 10.0
+offset_top = 240.0
+offset_right = 830.0
+offset_bottom = 367.0
+text = "0.0.0 (b0)"
+label_settings = SubResource("LabelSettings_rlj2b")
+metadata/_edit_use_anchors_ = true
+
+[node name="Github" type="HTTPRequest" parent="."]
